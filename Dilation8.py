@@ -107,15 +107,3 @@ class Dilation8(nn.Module):
             else:
                 layers['ctx_softmax'] = nn.Softmax()
         return nn.Sequential(layers)
-"""Load Cuda """
-use_cuda = torch.cuda.is_available()
-device = torch.device("cuda:0" if use_cuda else "cpu")
-torch.backends.cudnn.benchmark = True
-""""""""""""""""""
-
-model = Dilation8()
-model.to(device)
-summary(model, (3,852,852))
-macs, gflops, params = get_model_complexity_info(model, (3, 852, 852), as_strings=True,
-                                           print_per_layer_stat=False, verbose=False)
-print('{:<30}  {:<8} / {} gflops'.format('Computational complexity: ', macs, gflops[:4]))
